@@ -1,3 +1,4 @@
+// by using a jvmName, java can easily access static methods of extension functions.
 @file:JvmName("AxonServerContainerSpring")
 
 package io.holixon.axon.testcontainer.spring
