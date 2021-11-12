@@ -1,9 +1,6 @@
 package io.holixon.axon.testcontainer
 
-import io.holixon.axon.testcontainer._itest.AxonServerContainerTestApplication
-import io.holixon.axon.testcontainer._itest.BankAccountDto
-import io.holixon.axon.testcontainer._itest.CreateBankAccountCommand
-import io.holixon.axon.testcontainer._itest.FindBankAccountById
+import io.holixon.axon.testcontainer.kotlin.KotlinTestApplication
 import io.holixon.axon.testcontainer.spring.addDynamicProperties
 import mu.KLogging
 import org.assertj.core.api.Assertions.assertThat
@@ -20,7 +17,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.util.*
 
-@SpringBootTest(classes = [AxonServerContainerTestApplication::class], webEnvironment = WebEnvironment.NONE)
+@SpringBootTest(classes = [KotlinTestApplication::class], webEnvironment = WebEnvironment.NONE)
 @Testcontainers
 internal class AxonServerContainerKotlinITest {
   companion object : KLogging() {
@@ -47,11 +44,11 @@ internal class AxonServerContainerKotlinITest {
   fun `start axon server, run cmd, evt and query`() {
     val accountId = UUID.randomUUID().toString()
 
-    commandGateway.sendAndWait<Any>(CreateBankAccountCommand(accountId = accountId, initialBalance = 100))
+    commandGateway.sendAndWait<Any>(KotlinTestApplication.CreateBankAccountCommand(accountId = accountId, initialBalance = 100))
 
     val account = queryGateway.query(
-      FindBankAccountById(accountId),
-      ResponseTypes.optionalInstanceOf(BankAccountDto::class.java)
+      KotlinTestApplication.FindBankAccountById(accountId),
+      ResponseTypes.optionalInstanceOf(KotlinTestApplication.BankAccountDto::class.java)
     ).join().orElseThrow()
 
     assertThat(account.accountId).isEqualTo(accountId)
