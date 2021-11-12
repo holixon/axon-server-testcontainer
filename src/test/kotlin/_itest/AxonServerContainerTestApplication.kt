@@ -13,8 +13,7 @@ import java.util.*
 import org.axonframework.modelling.command.AggregateLifecycle.apply as publishEvent
 
 @SpringBootApplication
-class AxonServerContainerTestApplication {
-}
+class AxonServerContainerTestApplication
 
 typealias BankAccountId = String
 data class BankAccountDto(val accountId:BankAccountId, val balance:Int)

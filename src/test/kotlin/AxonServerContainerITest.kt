@@ -41,7 +41,7 @@ internal class AxonServerContainerITest {
   private lateinit var queryGateway: QueryGateway
 
   @Test
-  internal fun `start axon server, run cmd, evt and query`() {
+  fun `start axon server, run cmd, evt and query`() {
     val accountId = UUID.randomUUID().toString()
 
     commandGateway.sendAndWait<Any>(CreateBankAccountCommand(accountId = accountId, initialBalance = 100))
