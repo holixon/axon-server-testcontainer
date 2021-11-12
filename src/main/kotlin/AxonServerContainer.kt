@@ -1,32 +1,87 @@
 package io.holixon.axon.testcontainer
 
+import io.holixon.axon.testcontainer.builder.AxonServerContainerBuilder
 import mu.KLogging
 import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.output.Slf4jLogConsumer
-import org.testcontainers.containers.wait.strategy.Wait
 
-class AxonServerContainer(dockerImageName: String = DEFAULT_DOCKER_IMAGE) : GenericContainer<AxonServerContainer>(dockerImageName){
+/**
+ * A testcontainer instance running an axon server image
+ * in docker so it can be used during tests.
+ */
+class AxonServerContainer(
+  /**
+   * the docker image to start (defaults to `axoniq/axon-server:VERSION`).
+   */
+  dockerImageName: String,
+  /**
+   * The code to be excuted during the `init{}` phase.
+   */
+  initializer: AxonServerContainer.() -> Unit,
+
+  /**
+   * Map of env properties, only used to display in `toString()`.
+   */
+  val environment: Map<String, String>
+) : GenericContainer<AxonServerContainer>(dockerImageName) {
   companion object : KLogging() {
-    const val DOCKER_VENDOR = "axoniq"
-    const val DOCKER_IMAGE = "axonserver"
-    const val AXON_SERVER_VERSION = "4.5.8"
+    /**
+     * The ports used by axon server.
+     */
+    object Ports {
+      const val DEFAULT_REST_PORT = 8024
+      const val DEFAULT_GRPC_PORT = 8124
+    }
 
-    const val DEFAULT_DOCKER_IMAGE = "$DOCKER_VENDOR/$DOCKER_IMAGE:$AXON_SERVER_VERSION"
+    /**
+     * Default coordinates of the docker-hub image.
+     */
+    object DockerImage {
+      const val DOCKER_VENDOR = "axoniq"
+      const val DOCKER_IMAGE = "axonserver"
+      const val AXON_SERVER_VERSION = "4.5.8"
+      const val DEFAULT_DOCKER_IMAGE = "$DOCKER_VENDOR/$DOCKER_IMAGE:$AXON_SERVER_VERSION"
+    }
+
+    /**
+     * Keys of possible environment variables.
+     */
+    object EnvironmentVariables {
+      const val DEVMODE = "AXONIQ_AXONSERVER_DEVMODE_ENABLED"
+    }
+
+    /**
+     * Creates a builder instance to create a new container.
+     */
+    @JvmStatic
+    fun builder() : AxonServerContainerBuilder = AxonServerContainerBuilder()
   }
 
+  /**
+   * Set up the docker container.
+   */
   init {
-    withLogConsumer(Slf4jLogConsumer(logger))
-    withExposedPorts(8024, 8124)
-    withEnv("AXONIQ_AXONSERVER_DEVMODE_ENABLED", "true")
-    waitingFor(Wait.forLogMessage(".*Started AxonServer.*\\n", 1))
+    initializer.invoke(this)
   }
 
+  /**
+   * The URL of the local REST root path.
+   */
   val restUrl by lazy {
-    "http://localhost:${getMappedPort(8024)}"
+    "http://localhost:${getMappedPort(Ports.DEFAULT_REST_PORT)}"
   }
 
+  /**
+   * The url of the `grpc` interface. This has to be used to configure the
+   * gateways so they can communicate with the container.
+   */
   val url by lazy {
-    "localhost:${getMappedPort(8124)}"
+    "localhost:${getMappedPort(Ports.DEFAULT_GRPC_PORT)}"
   }
+
+  override fun toString() = "AxonServerContainer(" +
+    "restUrl='$restUrl'" +
+    ", url='$url'" +
+    ", environment=$environment" +
+    ")"
 
 }

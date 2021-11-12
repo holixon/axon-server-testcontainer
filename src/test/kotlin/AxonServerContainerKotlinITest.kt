@@ -1,14 +1,13 @@
 package io.holixon.axon.testcontainer
 
-import io.holixon.axon.testcontainer.AxonServerContainerSpring.addDynamicProperties
 import io.holixon.axon.testcontainer._itest.AxonServerContainerTestApplication
 import io.holixon.axon.testcontainer._itest.BankAccountDto
 import io.holixon.axon.testcontainer._itest.CreateBankAccountCommand
 import io.holixon.axon.testcontainer._itest.FindBankAccountById
+import io.holixon.axon.testcontainer.spring.addDynamicProperties
 import mu.KLogging
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.messaging.responsetypes.ResponseType
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.junit.jupiter.api.Test
@@ -23,11 +22,15 @@ import java.util.*
 
 @SpringBootTest(classes = [AxonServerContainerTestApplication::class], webEnvironment = WebEnvironment.NONE)
 @Testcontainers
-internal class AxonServerContainerITest {
+internal class AxonServerContainerKotlinITest {
   companion object : KLogging() {
 
     @Container
-    val axon = AxonServerContainer()
+    val axon = AxonServerContainer.builder()
+      .enableDevMode()
+      .build().apply {
+        logger.info { "------ $this" }
+      }
 
     @JvmStatic
     @DynamicPropertySource
@@ -46,8 +49,10 @@ internal class AxonServerContainerITest {
 
     commandGateway.sendAndWait<Any>(CreateBankAccountCommand(accountId = accountId, initialBalance = 100))
 
-    val account = queryGateway.query(FindBankAccountById(accountId), ResponseTypes.optionalInstanceOf(BankAccountDto::class.java))
-      .join().orElseThrow()
+    val account = queryGateway.query(
+      FindBankAccountById(accountId),
+      ResponseTypes.optionalInstanceOf(BankAccountDto::class.java)
+    ).join().orElseThrow()
 
     assertThat(account.accountId).isEqualTo(accountId)
     assertThat(account.balance).isEqualTo(100)
