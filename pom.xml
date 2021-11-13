@@ -4,7 +4,7 @@
 
   <groupId>io.holixon.axon.testing</groupId>
   <artifactId>axon-server-testcontainer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>axon-server-testcontainer</name>
   <description>Testcontainer for Axon Server</description>
   <url>https://github.com/holixon/axon-server-testcontainer/</url>
@@ -296,7 +296,7 @@
             <useSystemClassLoader>false</useSystemClassLoader>
             <shutdown>kill</shutdown>
             <runOrder>random</runOrder>
-            <argLine>--illegal-access=permit -Djava.awt.headless=true ${argLine} -XX:+StartAttachListener -Xmx1024m -XX:MaxPermSize=256m</argLine>
+            <argLine>--illegal-access=permit -Djava.awt.headless=true ${argLine} -XX:+StartAttachListener</argLine>
             <excludes>
               <exclude>**/*ITest.*</exclude>
             </excludes>
@@ -419,6 +419,7 @@
             <useSnapshotInRelease>true</useSnapshotInRelease>
             <keepBranch>false</keepBranch>
             <pushRemote>true</pushRemote>
+            <verbose>true</verbose>
           </configuration>
         </plugin>
 
@@ -483,6 +484,15 @@
           <version>2.5.2</version>
         </plugin>
 
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+
         <!-- Enforce -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -500,7 +510,7 @@
                     <version>${java.version}</version>
                   </requireJavaVersion>
                   <requireMavenVersion>
-                    <version>3.8.0</version>
+                    <version>3.6.0</version>
                   </requireMavenVersion>
                 </rules>
               </configuration>
