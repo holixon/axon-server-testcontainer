@@ -10,6 +10,7 @@ import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,6 +23,7 @@ import java.util.*
 
 @SpringBootTest(classes = [KotlinTestApplication::class], webEnvironment = WebEnvironment.NONE)
 @Testcontainers
+@Disabled("seems to be an issue to run kotlin and java test app in the same scope on github")
 internal class AxonServerContainerKotlinITest {
   companion object : KLogging() {
 
