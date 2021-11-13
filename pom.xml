@@ -420,9 +420,7 @@
             <keepBranch>false</keepBranch>
             <pushRemote>true</pushRemote>
             <verbose>true</verbose>
-            <argLine>
-              --illegal-access=permit
-            </argLine>
+            <argLine></argLine>
           </configuration>
         </plugin>
 
