@@ -420,7 +420,6 @@
             <keepBranch>false</keepBranch>
             <pushRemote>true</pushRemote>
             <verbose>true</verbose>
-            <argLine></argLine>
           </configuration>
         </plugin>
 
@@ -511,7 +510,7 @@
                     <version>${java.version}</version>
                   </requireJavaVersion>
                   <requireMavenVersion>
-                    <version>3.8.0</version>
+                    <version>3.6.0</version>
                   </requireMavenVersion>
                 </rules>
               </configuration>
