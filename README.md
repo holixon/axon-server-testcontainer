@@ -22,5 +22,5 @@ Run an Axon Server docker container from within your (junit) tests.
 </dependency>
 ```
 
-see [AxonServerContainerITest](./src/test/kotlin/AxonServerContainerITest.kt)
+see [AxonServerContainerITest](https://github.com/holixon/axon-server-testcontainer/blob/58194a1ebe71fff1d953debcda4d7b1dc37e8271/src/test/kotlin/AxonServerContainerKotlinITest.kt)
 
