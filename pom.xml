@@ -4,7 +4,7 @@
 
   <groupId>io.holixon.axon.testing</groupId>
   <artifactId>axon-server-testcontainer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>axon-server-testcontainer</name>
   <description>Testcontainer for Axon Server</description>
   <url>https://github.com/holixon/axon-server-testcontainer/</url>
