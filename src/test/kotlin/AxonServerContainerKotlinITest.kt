@@ -1,5 +1,6 @@
-package io.holixon.axon.testcontainer
+package io.holixon.axon.testcontainer.kotlin
 
+import io.holixon.axon.testcontainer.AxonServerContainer
 import io.holixon.axon.testcontainer.kotlin.KotlinTestApplication
 import io.holixon.axon.testcontainer.spring.addDynamicProperties
 import mu.KLogging
@@ -7,6 +8,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -32,6 +35,12 @@ internal class AxonServerContainerKotlinITest {
     @JvmStatic
     @DynamicPropertySource
     fun axonProperties(registry: DynamicPropertyRegistry) = axon.addDynamicProperties(registry)
+
+    @JvmStatic
+    @AfterAll
+    internal fun tearDown() {
+      axon.stop()
+    }
   }
 
   @Autowired
@@ -54,4 +63,6 @@ internal class AxonServerContainerKotlinITest {
     assertThat(account.accountId).isEqualTo(accountId)
     assertThat(account.balance).isEqualTo(100)
   }
+
+
 }

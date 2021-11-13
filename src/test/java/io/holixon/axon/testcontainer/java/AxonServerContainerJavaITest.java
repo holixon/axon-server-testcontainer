@@ -1,14 +1,15 @@
-package io.holixon.axon.testcontainer;
+package io.holixon.axon.testcontainer.java;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
-import io.holixon.axon.testcontainer.java.JavaTestApplication;
+import io.holixon.axon.testcontainer.AxonServerContainer;
 import io.holixon.axon.testcontainer.spring.AxonServerContainerSpring;
 import java.util.UUID;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,5 +49,10 @@ class AxonServerContainerJavaITest {
 
     assertThat(account.getAccountId()).isEqualTo(accountId);
     assertThat(account.getBalance()).isEqualTo(100);
+  }
+
+  @AfterAll
+  static void afterAll() {
+    AXON.stop();
   }
 }
