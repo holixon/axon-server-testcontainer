@@ -296,7 +296,7 @@
             <useSystemClassLoader>false</useSystemClassLoader>
             <shutdown>kill</shutdown>
             <runOrder>random</runOrder>
-            <argLine>--illegal-access=permit -Djava.awt.headless=true ${argLine} -XX:+StartAttachListener -Xmx1024m -XX:MaxPermSize=256m</argLine>
+            <argLine>--illegal-access=permit -Djava.awt.headless=true ${argLine} -XX:+StartAttachListener</argLine>
             <excludes>
               <exclude>**/*ITest.*</exclude>
             </excludes>
@@ -419,6 +419,10 @@
             <useSnapshotInRelease>true</useSnapshotInRelease>
             <keepBranch>false</keepBranch>
             <pushRemote>true</pushRemote>
+            <verbose>true</verbose>
+            <argLine>
+              --illegal-access=permit
+            </argLine>
           </configuration>
         </plugin>
 
@@ -481,6 +485,15 @@
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
         </plugin>
 
         <!-- Enforce -->
