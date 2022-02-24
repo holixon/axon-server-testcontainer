@@ -14,10 +14,10 @@ Run an Axon Server docker container from within your (junit) tests.
 ## Usage
 
 ```
-<dependendcy>
-    <groupId>io.holixon.axon.testing<</groupId>
+<dependency>
+    <groupId>io.holixon.axon.testing</groupId>
     <artifactId>axon-server-testcontainer</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <scope>test</scope>
 </dependency>
 ```
