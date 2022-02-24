@@ -18,13 +18,17 @@ class AxonServerContainerBuilder {
     environment[EnvironmentVariables.DEVMODE] = "true"
   }
 
+  fun dockerImageVersion(version: String) = apply {
+    dockerImageName = DockerImage.buildDockerImageName(version)
+  }
+
 
   fun build() = AxonServerContainer(
     dockerImageName = dockerImageName,
     initializer = {
       withLogConsumer(Slf4jLogConsumer(logger))
       withExposedPorts(Ports.DEFAULT_REST_PORT, Ports.DEFAULT_GRPC_PORT)
-      environment.forEach { k, v ->
+      environment.forEach { (k, v) ->
         withEnv(k, v)
       }
       waitingFor(Wait.forLogMessage(".*Started AxonServer.*\\n", 1))
