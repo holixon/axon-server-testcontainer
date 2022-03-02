@@ -38,8 +38,10 @@ class AxonServerContainer(
     object DockerImage {
       const val DOCKER_VENDOR = "axoniq"
       const val DOCKER_IMAGE = "axonserver"
-      const val AXON_SERVER_VERSION = "4.5.8"
+      const val AXON_SERVER_VERSION = "4.5.10"
       const val DEFAULT_DOCKER_IMAGE = "$DOCKER_VENDOR/$DOCKER_IMAGE:$AXON_SERVER_VERSION"
+
+      fun buildDockerImageName(version: String) = "$DOCKER_VENDOR/$DOCKER_IMAGE:$version"
     }
 
     /**
