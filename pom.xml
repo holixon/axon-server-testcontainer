@@ -10,7 +10,7 @@
   <url>https://github.com/holixon/axon-server-testcontainer/</url>
 
   <properties>
-    <kotlin.version>1.7.0</kotlin.version>
+    <kotlin.version>1.7.10</kotlin.version>
     <java.version>11</java.version>
 
     <testcontainers.version>1.17.3</testcontainers.version>
