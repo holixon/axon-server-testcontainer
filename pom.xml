@@ -17,7 +17,7 @@
     <kotlin-logging.version>2.1.23</kotlin-logging.version>
     <spring-boot.version>2.7.1</spring-boot.version>
     <axon-bom.version>4.5.16</axon-bom.version>
-    <junit.version>5.8.2</junit.version>
+    <junit.version>5.9.0</junit.version>
   </properties>
 
   <dependencyManagement>
