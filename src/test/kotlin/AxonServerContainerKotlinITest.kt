@@ -23,7 +23,7 @@ import java.util.*
 
 @SpringBootTest(classes = [KotlinTestApplication::class], webEnvironment = WebEnvironment.NONE)
 @Testcontainers
-@Disabled("seems to be an issue to run kotlin and java test app in the same scope on github")
+//@Disabled("seems to be an issue to run kotlin and java test app in the same scope on github")
 internal class AxonServerContainerKotlinITest {
   companion object : KLogging() {
 
