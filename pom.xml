@@ -14,7 +14,7 @@
     <java.version>11</java.version>
 
     <testcontainers.version>1.17.5</testcontainers.version>
-    <kotlin-logging.version>3.0.2</kotlin-logging.version>
+    <kotlin-logging.version>3.0.3</kotlin-logging.version>
     <spring-boot.version>2.7.5</spring-boot.version>
     <axon-bom.version>4.6.1</axon-bom.version>
     <junit.version>5.9.1</junit.version>
