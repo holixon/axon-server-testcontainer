@@ -13,7 +13,7 @@
     <kotlin.version>1.8.20</kotlin.version>
     <java.version>11</java.version>
 
-    <testcontainers.version>1.17.6</testcontainers.version>
+    <testcontainers.version>1.18.0</testcontainers.version>
     <kotlin-logging.version>3.0.5</kotlin-logging.version>
     <spring-boot.version>2.7.5</spring-boot.version>
     <axon-bom.version>4.6.3</axon-bom.version>
